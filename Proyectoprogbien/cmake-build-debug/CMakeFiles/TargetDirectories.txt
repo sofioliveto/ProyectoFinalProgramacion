@@ -1,0 +1,3 @@
+C:/Users/sofis/CLionProjects/Proyectoprogbien/cmake-build-debug/CMakeFiles/Proyectoprogbien.dir
+C:/Users/sofis/CLionProjects/Proyectoprogbien/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/sofis/CLionProjects/Proyectoprogbien/cmake-build-debug/CMakeFiles/rebuild_cache.dir
