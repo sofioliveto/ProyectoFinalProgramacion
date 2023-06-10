@@ -9,7 +9,7 @@ class Transaccion {
 protected:
     //Atributos
     int numtransaccion;
-    float monto;
+    long double monto;
     int dia;
     int mes;
     int anio;
@@ -17,8 +17,8 @@ protected:
 public:
     void setnumtransaccion(int _numtransaccion);
     int getnumtransaccion();
-    void setmonto(float _monto);
-    float getmonto();
+    void setmonto(long double _monto);
+    long double getmonto();
     void setdia(int _dia);
     int getdia();
     void setmes(int _mes);
@@ -33,5 +33,5 @@ public:
 
     //Constructores
     Transaccion();
-    Transaccion(int _numtransaccion, float _monto, int _dia, int _mes, int _anio);
+    Transaccion(int _numtransaccion, long double _monto, int _dia, int _mes, int _anio);
 };

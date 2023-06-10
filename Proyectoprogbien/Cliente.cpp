@@ -48,11 +48,11 @@ int Cliente::getantiguedad() {
 }
 
 
-void Cliente::setsaldo(float _saldo) {
+void Cliente::setsaldo(long double _saldo) {
     saldo = _saldo;
 }
 
-float Cliente::getsaldo() {
+long double Cliente::getsaldo() {
     return saldo;
 }
 
@@ -74,7 +74,7 @@ Cliente::Cliente() {
     Transaccion();
 }
 
-Cliente::Cliente(int _numcliente, string _nombre, string _apellido, int _estado, int _antiguedad, float _saldo,
+Cliente::Cliente(int _numcliente, string _nombre, string _apellido, int _estado, int _antiguedad, long double _saldo,
                  int _membresia) {
     numcliente = _numcliente;
     nombre = _nombre;
@@ -85,7 +85,7 @@ Cliente::Cliente(int _numcliente, string _nombre, string _apellido, int _estado,
     membresia = _membresia;
 }
 
-void Cliente::extraccion(float _monto, int _dia, int _mes, int _anio) {
+void Cliente::extraccion(long double _monto, int _dia, int _mes, int _anio) {
     int i, numero;
     for (i = 0; i < 100; i++) {
         if (transacciones[i].getanio() == -1) {
@@ -106,7 +106,7 @@ void Cliente::extraccion(float _monto, int _dia, int _mes, int _anio) {
     }
 }
 
-void Cliente::deposito(float _monto, int _dia, int _mes, int _anio) {
+void Cliente::deposito(long double _monto, int _dia, int _mes, int _anio) {
     int i, numero;
     for (i = 0; i < 100; i++) {
         if (transacciones[i].getanio() == -1) {

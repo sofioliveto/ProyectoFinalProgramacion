@@ -13,11 +13,11 @@ int Transaccion::getnumtransaccion() {
     return numtransaccion;
 }
 
-void Transaccion::setmonto(float _monto) {
+void Transaccion::setmonto(long double _monto) {
     monto = _monto;
 }
 
-float Transaccion::getmonto() {
+long double Transaccion::getmonto() {
     return monto;
 }
 
@@ -62,7 +62,7 @@ Transaccion::Transaccion() {
     categoria = 'C';
 }
 
-Transaccion::Transaccion(int _numtransaccion, float _monto, int _dia, int _mes, int _anio) {
+Transaccion::Transaccion(int _numtransaccion, long double _monto, int _dia, int _mes, int _anio) {
     numtransaccion = _numtransaccion;
     monto = _monto;
     dia = _dia;

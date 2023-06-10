@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <stdexcept>
 #include "Cliente.h"
 
 using namespace std;
@@ -46,7 +47,7 @@ void validarFechas() {
 void cargarcliente(Cliente *clientes) {
     string cnombre, capellido;
     int cnumcliente, cestado, cantiguedad, cmembresia;
-    float csaldo;
+    long double csaldo;
     for (int i = 0; i < 100; i++) {
         if (clientes[i].getantiguedad() == -1) {
             cnumcliente = i;
@@ -197,7 +198,7 @@ void mostrarUNcliente(Cliente *clientes) {
 }
 
 void extraccion(Cliente *clientes) {
-    float cinmonto;
+    long double cinmonto;
     int i, j;
     cout << "Ingrese el numero de cliente al cual desea realizar la extraccion de dinero: ";
     cin >> i;
@@ -216,7 +217,7 @@ void extraccion(Cliente *clientes) {
 }
 
 void depositar(Cliente *clientes) {
-    float cinmonto;
+    long double cinmonto;
     int i, j;
     cout << "Ingrese el numero de cliente al cual desea realizar el deposito de dinero: ";
     cin >> i;
@@ -341,7 +342,7 @@ void leerarchivo (Cliente *clientes) {
     ifstream archivo ("Clientes.txt");
     string linea, dato;
     int numero;
-    float numerofloat;
+    long double numerogrande;
     stringstream s;
     int index = -1, index_dato = 0, i=0;
     while (getline(archivo, linea, '\n')){
@@ -366,8 +367,8 @@ void leerarchivo (Cliente *clientes) {
                     clientes[i].setapellido(dato);
                     break;
                 case 3:
-                    numerofloat= stoi(dato);
-                    clientes[i].setsaldo(numerofloat);
+                    numerogrande= stoi(dato);
+                    clientes[i].setsaldo(numerogrande);
                     break;
                 case 4:
                     numero= stoi(dato);
@@ -395,7 +396,7 @@ void leerarchivoT(Cliente *clientes) {
     ifstream archivo ("Transacciones.txt");
     string linea, dato;
     int numero;
-    float numerofloat;
+    long double numerogrande;
     stringstream s;
     int index = -1, index_dato = 0, i=0, j=0;
     while (getline(archivo, linea, '\n')){
@@ -418,8 +419,8 @@ void leerarchivoT(Cliente *clientes) {
                     clientes[i].transacciones[j].setnumtransaccion(numero);
                     break;
                 case 2:
-                    numerofloat= stoi(dato);
-                    clientes[i].transacciones[j].setmonto(numerofloat);
+                    numerogrande= stoi(dato);
+                    clientes[i].transacciones[j].setmonto(numerogrande);
                     break;
                 case 3:
                     clientes[i].transacciones[j].setcategoria(dato);
@@ -449,6 +450,7 @@ int main() {
     string cincategoria;
     string cinnombre, cinapellido;
     int opc, opc2;
+    bool entradavalida1=false, entradavalida2=false;
 
     Cliente clientes[100];
     leerarchivo(clientes);
@@ -469,8 +471,28 @@ int main() {
         cout << "8) Informe de extracciones y depositos" << endl;
         cout << "9) Ver transacciones por cliente" << endl;
         cout << "10) Salir del Programa" << endl;
-        cout << "Ingrese Opcion: ";
-        cin >> opc;
+
+        while (!entradavalida1) {
+            try {
+                cout << "Ingrese Opcion: ";
+                cin >> opc;
+                if (cin.fail()) { //si ingresa algo que no es numero se arroja la excepcion
+                    throw runtime_error("Error: entrada invalida. Se esperaba un numero.");
+                }
+                if (opc!=1 && opc!=2 && opc!=3 && opc!=4 && opc!=5 && opc!=6 && opc!=7 && opc!=8 && opc!=9 && opc!=10){
+                    throw runtime_error("Error: entrada invalida. Se esperaba un numero entre 1 y 10.");
+                }
+                entradavalida1=true;
+            }
+            catch (const exception &e) {
+                cout << "Se produjo una excepcion: " << e.what() << std::endl; //se toma la expecion del throw
+                cin.clear(); // limpiar el estado de error del cin
+                string descarte;
+                getline(std::cin, descarte); // descartar la línea completa ingresada por el usuario
+            }
+        }
+        entradavalida1= false;
+
 
         switch (opc) {
             case 1:
@@ -506,8 +528,28 @@ int main() {
                 cout << "1) Ver todas las transacciones" << endl;
                 cout << "2) Ver transacciones por anio" << endl;
                 cout << "3) Ver transacciones por periodo de seis meses" << endl;
-                cout << "Ingrese Opcion: ";
-                cin >> opc2;
+
+                while (!entradavalida2) {
+                    try {
+                        cout << "Ingrese Opcion: ";
+                        cin >> opc2;
+                        if (cin.fail()) { //si ingresa algo que no es numero se arroja la excepcion
+                            throw runtime_error("Error: entrada invalida. Se esperaba un numero.");
+                        }
+                        if (opc2!=1 && opc2!=2 && opc2!=3){
+                            throw runtime_error("Error: entrada invalida. Se esperaba un numero entre 1 y 3.");
+                        }
+                        entradavalida2=true;
+                    }
+                    catch (const exception &e) {
+                        cout << "Se produjo una excepcion: " << e.what() << std::endl; //se toma la expecion del throw
+                        cin.clear(); // limpiar el estado de error del cin
+                        string descarte;
+                        getline(std::cin, descarte); // descartar la línea completa ingresada por el usuario
+                    }
+                }
+                entradavalida2= false;
+
                 switch (opc2) {
                     case 1:
                         mostrartransacciones(clientes);
@@ -526,8 +568,6 @@ int main() {
             case 10:
                 cout << "El programa se cerrara" << endl;
                 return 0;
-            default:
-                cout << "Ingrese una opcion valida" << endl;
         }
     }
 }
